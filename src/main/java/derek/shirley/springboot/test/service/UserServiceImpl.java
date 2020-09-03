@@ -25,4 +25,21 @@ public class UserServiceImpl implements UserService {
 	public Optional<UserRest> findById(Integer id) {
 		return repo.findById(id);
 	}
+
+	@Override
+	public void save(UserRest user) {
+		repo.save(user);
+	}
+
+	@Override
+	public Integer create(UserRest user) {
+		UserRest savedUser = repo.save(user);
+
+		return savedUser.getId();
+	}
+
+	@Override
+	public void deleteById(Integer id) {
+		repo.deleteById(id);
+	}
 }
