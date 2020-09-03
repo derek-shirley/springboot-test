@@ -1,0 +1,44 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+  <property name="char" value="CHAR" dbms="oracle" />
+  <property name="char" value="" />
+
+
+  <!-- META DATA TABLES -->
+  <changeSet id="1.0.0-1" author="derek.shirley">
+    <createTable tableName="User" remarks="">
+      <column name="id" type="NUMBER(10,0)" remarks="">
+        <constraints nullable="false" />
+      </column>
+      <column name="firstName" type="VARCHAR(30 ${char})" remarks="">
+        <constraints nullable="false" />
+      </column>
+      <column name="lastName" type="VARCHAR(30 ${char})" remarks="">
+        
+      </column>
+    </createTable>
+
+    <createTable tableName="Role" remarks="">
+      <column name="id" type="NUMBER(10,0)" remarks="">
+        <constraints nullable="false" />
+      </column>
+      <column name="name" type="VARCHAR(50 ${char})" remarks="">
+        <constraints nullable="false" />
+      </column>
+    </createTable>
+
+    <createTable tableName="UserRoles" remarks="">
+      <column name="userId" type="NUMBER(10,0)" remarks="">
+        <constraints nullable="false" foreignKeyName="USER_ROLES_USER_ID_FK" 
+        			referencedTableName="User" referencedColumnNames="id"/>
+      </column>
+      <column name="roleId" type="NUMBER(10,0)" remarks="">
+        <constraints nullable="false" foreignKeyName="USER_ROLES_ROLE_ID_FK" 
+        			referencedTableName="Role" referencedColumnNames="id"/>
+      </column>
+    </createTable>
+  </changeSet>
+
+</databaseChangeLog>
