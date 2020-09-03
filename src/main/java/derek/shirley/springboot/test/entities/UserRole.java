@@ -15,11 +15,11 @@ public class UserRole implements Serializable {
 	private static final long serialVersionUID = 19802348902345L;
 
 	@NotNull
-	@JoinColumn(name = "userId")
+	@JoinColumn(name = "user_id")
 	private User user;
 
 	@NotNull
-	@JoinColumn(name = "roleId")
+	@JoinColumn(name = "role_id")
 	private Role role;
 
 	public User getUser() {

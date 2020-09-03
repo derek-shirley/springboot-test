@@ -8,8 +8,8 @@
       separator="," tableName="User">
 
       <column header="id" name="id" type="NUMERIC" />
-      <column header="firstName" name="firstName" type="STRING" />
-      <column header="lastName" name="lastName" type="STRING" />
+      <column header="firstName" name="first_name" type="STRING" />
+      <column header="lastName" name="last_name" type="STRING" />
     </loadData>
   </changeSet>
     <changeSet author="derek.shirley" id="loadData-roles">
@@ -24,8 +24,8 @@
     <loadData encoding="UTF-8" file="/liquibase/data/springboot-test_userroles-data.csv" quotchar="&quot;"
       separator="," tableName="UserRoles">
 
-      <column header="userId" name="userId" type="NUMERIC" />
-      <column header="roleId" name="roleId" type="NUMERIC" />
+      <column header="userId" name="user_id" type="NUMERIC" />
+      <column header="roleId" name="role_id" type="NUMERIC" />
     </loadData>
   </changeSet>
 </databaseChangeLog>

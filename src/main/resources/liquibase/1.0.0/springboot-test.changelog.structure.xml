@@ -12,10 +12,10 @@
       <column name="id" type="NUMBER(10,0)" remarks="">
         <constraints nullable="false" />
       </column>
-      <column name="firstName" type="VARCHAR(30 ${char})" remarks="">
+      <column name="first_name" type="VARCHAR(30 ${char})" remarks="">
         <constraints nullable="false" />
       </column>
-      <column name="lastName" type="VARCHAR(30 ${char})" remarks="">
+      <column name="last_name" type="VARCHAR(30 ${char})" remarks="">
         
       </column>
     </createTable>
@@ -30,11 +30,11 @@
     </createTable>
 
     <createTable tableName="UserRoles" remarks="">
-      <column name="userId" type="NUMBER(10,0)" remarks="">
+      <column name="user_id" type="NUMBER(10,0)" remarks="">
         <constraints nullable="false" foreignKeyName="USER_ROLES_USER_ID_FK" 
         			referencedTableName="User" referencedColumnNames="id"/>
       </column>
-      <column name="roleId" type="NUMBER(10,0)" remarks="">
+      <column name="role_id" type="NUMBER(10,0)" remarks="">
         <constraints nullable="false" foreignKeyName="USER_ROLES_ROLE_ID_FK" 
         			referencedTableName="Role" referencedColumnNames="id"/>
       </column>
