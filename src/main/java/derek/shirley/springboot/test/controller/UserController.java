@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import derek.shirley.springboot.test.entities.Role;
 import derek.shirley.springboot.test.model.rest.UserRest;
 import derek.shirley.springboot.test.service.UserService;
 
@@ -52,21 +53,36 @@ public class UserController {
 
 		Optional<UserRest> userOptional = userService.findById(id);
 
-		if (!userOptional.isPresent())
+		if (!userOptional.isPresent()) {
 			return ResponseEntity.notFound().build();
+		}
 
-		user.setId(id);
+		try {
+			validateModel(user);
 
-		userService.save(user);
+			user.setId(id);
 
-		return ResponseEntity.noContent().build();
+			userService.save(user);
+
+			return ResponseEntity.noContent().build();
+		} catch (Exception e) {
+			ResponseEntity<String> entity = new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+			return entity;
+		}
 	}
 
 	@RequestMapping(value = "/user", method = RequestMethod.POST)
 	public ResponseEntity<String> create(@RequestBody UserRest user) throws JsonProcessingException {
 		userService.create(user);
 
-		return ResponseEntity.noContent().build();
+		try {
+			validateModel(user);
+
+			return ResponseEntity.noContent().build();
+		} catch (Exception e) {
+			ResponseEntity<String> entity = new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+			return entity;
+		}
 	}
 
 	@RequestMapping(value = "/user/{id}", method = RequestMethod.DELETE)
@@ -74,5 +90,31 @@ public class UserController {
 		userService.deleteById(id);
 
 		return ResponseEntity.noContent().build();
+	}
+
+	private void validateModel(UserRest user) {
+		if (user == null) {
+			throw new RuntimeException("No User information provided");
+		}
+
+		StringBuffer errors = new StringBuffer();
+
+		if (user.getFirstName() == null || user.getFirstName().isEmpty()) {
+			errors.append("\n\"firstName\": \"First name is mandatory\"");
+		}
+
+		if (user.getRoles() != null && !user.getRoles().isEmpty()) {
+			for (int i = 0; i < user.getRoles().size(); i++) {
+				Role r = user.getRoles().get(i);
+
+				if (r.getName() == null || r.getName().isEmpty()) {
+					errors.append(String.format("\n\"roles[%s].name\": \"Name is mandatory\"", i));
+				}
+			}
+		}
+
+		if (!errors.toString().isEmpty()) {
+			throw new RuntimeException(errors.toString());
+		}
 	}
 }
