@@ -10,8 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Entity
 @Table(name = "User")
 public class User implements Serializable {
@@ -21,7 +19,6 @@ public class User implements Serializable {
 	 */
 	private static final long serialVersionUID = 19802348902345L;
 
-	@JsonIgnore
 	@Id
 	@NotNull
 	@GeneratedValue(strategy = GenerationType.AUTO)
